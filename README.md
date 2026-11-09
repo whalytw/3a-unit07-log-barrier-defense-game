@@ -1,6 +1,6 @@
 # 對數結界防衛戰
 
-三位學生各自操作的 Unit 07 對數函數教學網頁遊戲。使用原創動漫角色與科技城市美術，十題對應十種戰鬥事件。版本：**v1.1.0**。
+三位學生各自操作的 Unit 07 對數函數教學網頁遊戲。使用原創動漫角色與科技城市美術，十種題型可逐題勾選，並各自對應一種戰鬥事件。版本：**v1.2.0**。
 
 建議 GitHub 儲存庫名稱：**`log-barrier-defense-game`**
 
@@ -21,6 +21,14 @@
 
 部署設定依據：[GitHub 官方說明](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)。本專案使用相對路徑，可放在 GitHub Pages 的專案子路徑。
 
+## 個別出題設定
+
+教師設定新增第 1～10 題的獨立勾選，預設第 1～8 題勾選、第 9、10 題不勾選，至少須選一題。勾選設定會記住並套用到下一局的三位玩家。
+
+未勾選的題目不會出現在主線或加練。題目仍按原第 1～10 題的順序排列，主線進度以實際所選題數顯示；結算詳解與 CSV 保留原題號，方便對照設定。
+
+保留各題原配分，滿分等於所選題目的配分總和：預設 8 題滿分 60 分；全選 10 題滿分 100 分。例如只選第 1、3 題，則共 2 題、滿分 10 分。
+
 ## 遊玩方式
 
 - 三區同時開始；題目、答案、提示、分數、動畫與進度各自獨立。
@@ -40,13 +48,13 @@
 | 1～4：真數條件 | 4 | 5 | 20 |
 | 5～8：一般對數不等式 | 4 | 10 | 40 |
 | 9～10：進階整合 | 2 | 20 | 40 |
-| 合計 | 10 | | 100 |
+| 全選合計 | 10 | | 100 |
 
 - 首次答對且未用提示：100%。
 - 答錯一次後答對且未用提示：80%。
 - 答錯兩次以上或使用提示後答對：60%；兩者不重複扣分。
 - 看解答略過或未完成：0 分。
-- 主線完成後進入加練；加練另記成功題數，主線最高仍為 100 分。
+- 主線完成後進入加練；加練另記成功題數，主線滿分仍依勾選題目計算。
 - 成績報告提供首答題數、逐題解說重播與 CSV 下載。同分可以並列。
 - 教師可於「設定 → 本局結算」提前查看目前成果。
 
@@ -97,7 +105,7 @@
 - `animation-preview.html`、`preview.js`：十幕演出預覽。
 - `app.js`：遊戲狀態、數線、計時、提示、成績。
 - `assets/`：原創角色、城市背景、圖示。
-- `tests/core.test.cjs`、`tests/presentation.test.cjs`：可用 `node --test tests/core.test.cjs tests/presentation.test.cjs` 執行。
+- `tests/core.test.cjs`、`tests/presentation.test.cjs`、`tests/selection.test.cjs`：可用 `node --test tests/core.test.cjs tests/presentation.test.cjs tests/selection.test.cjs` 執行。
 - `tests/layout-1280.html`：以 1280×720 iframe 檢查介面。
 - `ASSETS.md`：美術來源與製作提示。
 - `VALIDATION.md`：此版本已完成的驗證及實機驗收範圍。
@@ -106,4 +114,4 @@
 
 ## 更新舊版
 
-將新版資料夾內的檔案完整覆蓋到原儲存庫，包含新增的 `effects.js`、`audio.js`、`preview.js`、`animation-preview.html` 及 `assets` 內的新圖片。儲存庫名稱仍為 `log-barrier-defense-game`。程式載入版本已改成 v1.1.0，頁尾可確認目前版本。
+將新版資料夾內的檔案完整覆蓋到原儲存庫，包含新增的 `effects.js`、`audio.js`、`preview.js`、`animation-preview.html` 及 `assets` 內的新圖片。儲存庫名稱仍為 `log-barrier-defense-game`。程式載入版本已改成 v1.2.0，頁尾可確認目前版本。

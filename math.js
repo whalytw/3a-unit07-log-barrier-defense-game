@@ -39,5 +39,10 @@
     for(let t=0;t<10;t++) {const pool=t===2?[-2,-1,0,1]:t===9?[0,1,2,3]:[0,1,2,3];for(let j=pool.length-1;j>0;j--){const k=Math.floor(random()*(j+1));[pool[j],pool[k]]=[pool[k],pool[j]];}const v=Math.floor(random()*2);players.forEach((p,i)=>p.push(makeQuestion(t,pool[i],v)));}
     return players;
   }
-  const api={EVENTS,TAGS,rng,makeQuestion,campaign,formatAnswer,acceptAnswer,scoreFor,interval};root.LogMath=api;if(typeof module!=='undefined')module.exports=api;
+  const DEFAULT_ENABLED=Object.freeze(Array.from({length:10},(_,i)=>i<8));
+  function normalizeEnabled(value){return Array.isArray(value)&&value.length===10?value.map(v=>v===true):[...DEFAULT_ENABLED];}
+  function selectCampaign(seed,enabled){const selected=normalizeEnabled(enabled);if(!selected.some(Boolean))throw new RangeError('請至少勾選一題。');return campaign(seed).map(qs=>qs.filter(q=>selected[q.type]));}
+  function selectedPoints(enabled){return normalizeEnabled(enabled).reduce((sum,on,type)=>sum+(on?makeQuestion(type,0).points:0),0);}
+  function practiceQuestion(qs,player,round){if(!qs.length)throw new RangeError('No enabled questions');return makeQuestion(qs[round%qs.length].type,(player+round)%4,round%2);}
+  const api={EVENTS,TAGS,rng,makeQuestion,campaign,formatAnswer,acceptAnswer,scoreFor,interval,DEFAULT_ENABLED,normalizeEnabled,selectCampaign,selectedPoints,practiceQuestion};root.LogMath=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
