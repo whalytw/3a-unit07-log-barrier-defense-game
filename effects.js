@@ -1,19 +1,25 @@
 (function(root){
   'use strict';
-  const FRAME_FPS=4,SUCCESS_SECONDS=4;
+  const FRAME_FPS=8,SUCCESS_SECONDS=4,IDLE_FRAMES=8;
+  const STANCES=['拳擊護臉','側身掌法','光刃防守'];
+  // Fixed atlas foot baselines keep the planted feet on the platform across each loop.
+  const FOOT_BASELINES=[[.9493,.9336,.9375,.9336],[.9335,.9727,.957,.9453],[.9605,.9375,.9336,.9219]];
   const DISTRICTS=['外城入口','高架斷橋','運輸碼頭','霓虹巷弄','城防廣場','巨砲平台','高空航道','工業機庫','重力反應室','中樞核心'];
   const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
   const mix=(a,b,p)=>a+(b-a)*p;
   function makeImage(src){if(typeof Image==='undefined')return {complete:false,naturalWidth:0};const im=new Image();im.src=src;return im;}
-  const characters=['cyan','violet','amber'].map(n=>makeImage('assets/hero-'+n+'-16.png'));
+  const characters=['cyan','violet','amber'].map(n=>makeImage('assets/hero-'+n+'-actions-24.png'));
+  const idles=['cyan','violet','amber'].map(n=>makeImage('assets/hero-'+n+'-idle-8.png'));
   const backgrounds=['a','b'].map(n=>makeImage('assets/districts-'+n+'.png'));
-  const poseFrame=(seconds)=>Math.floor(Math.max(0,seconds)*FRAME_FPS+1e-8)%4;
+  const poseFrame=(seconds)=>Math.floor(Math.max(0,seconds)*FRAME_FPS+1e-8)%8;
+  const idleFrame=(seconds,player=0)=>poseFrame(seconds+player/FRAME_FPS);
+  function poseCell(pose,seconds,player=0){const frame=pose===0?idleFrame(seconds,player):poseFrame(seconds);return {column:frame%4,row:(pose===0?0:(pose-1)*2)+Math.floor(frame/4),rows:pose===0?2:6};}
   const districtCell=type=>({atlas:type<5?0:1,column:(type%5)%2,row:Math.floor((type%5)/2)});
   function line(c,x,y,xx,yy,color,width=2){c.beginPath();c.moveTo(x,y);c.lineTo(xx,yy);c.strokeStyle=color;c.lineWidth=width;c.stroke();}
   function ring(c,x,y,r,ry,color,width=2){c.beginPath();c.ellipse(x,y,Math.max(.1,r),Math.max(.1,ry),0,0,Math.PI*2);c.strokeStyle=color;c.lineWidth=width;c.stroke();}
   function glowDot(c,x,y,r,color){c.beginPath();c.arc(x,y,Math.max(.1,r),0,Math.PI*2);c.fillStyle=color;c.fill();}
   function drawBackground(c,type,w,h){const cell=districtCell(type),im=backgrounds[cell.atlas];if(!im.complete||!im.naturalWidth)return false;const sw=im.naturalWidth/2,sh=im.naturalHeight/3;let cw=sw,ch=sh;if(sw/sh>w/h)cw=sh*w/h;else ch=sw*h/w;c.drawImage(im,cell.column*sw+(sw-cw)/2,cell.row*sh+(sh-ch)/2,cw,ch,0,0,w,h);const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#050d1b10');g.addColorStop(.6,'#07162b00');g.addColorStop(1,'#06122b55');c.fillStyle=g;c.fillRect(0,0,w,h);return true;}
-  function drawPose(c,player,pose,seconds,size){const im=characters[player];if(!im.complete||!im.naturalWidth)return false;const sw=im.naturalWidth/4,sh=im.naturalHeight/4,frame=poseFrame(seconds);c.drawImage(im,frame*sw,pose*sh,sw,sh,-size/2,-size,size,size);return true;}
+  function drawPose(c,player,pose,seconds,size){const im=(pose===0?idles:characters)[player];if(!im.complete||!im.naturalWidth)return false;const cell=poseCell(pose,seconds,player),sw=im.naturalWidth/4,sh=im.naturalHeight/cell.rows;c.drawImage(im,cell.column*sw,cell.row*sh,sw,sh,-size/2,-size*FOOT_BASELINES[player][pose],size,size);return true;}
   function atmosphere(c,type,time,w,h,color,gentle){c.save();c.globalAlpha=gentle?.14:.26;const f=h-21;switch(type){
     case 0:line(c,(time*45)%w,15,(time*45)%w,f,color,1);break;
     case 1:for(let i=0;i<5;i++){const x=(i*137-time*15+w*10)%w;line(c,x,f+5,x+42,f+5,color,1);}break;
@@ -45,5 +51,5 @@
     if(p>.85){const q=(p-.85)/.15;c.globalAlpha*=1-q;for(let i=0;i<(gentle?8:20);i++){const x=100+(i*83)%430,y=floor-q*(35+i%5*12);glowDot(c,x,y,1.5+(i%3),color);}}
     c.restore();
   }
-  const api={FRAME_FPS,SUCCESS_SECONDS,DISTRICTS,characters,backgrounds,poseFrame,districtCell,drawBackground,drawPose,atmosphere,energy};root.GameArt=api;if(typeof module!=='undefined')module.exports=api;
+  const api={FRAME_FPS,SUCCESS_SECONDS,IDLE_FRAMES,STANCES,DISTRICTS,characters,idles,backgrounds,poseFrame,idleFrame,poseCell,districtCell,drawBackground,drawPose,atmosphere,energy};root.GameArt=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

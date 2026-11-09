@@ -32,7 +32,7 @@
       root.GameArt?.drawBackground(c,ev,w,h);
       this.ground(floor,t);
       root.GameArt?.atmosphere(c,ev,t,w,h,this.color,this.gentle);
-      const bob=Math.sin(t*2.2)*2;
+      const bob=0;
       if(!fx){
         if(ev===9)this.drone(490,h*.29,1.15,Math.sin(t*.9)*.06,true);
         else if(ev===7){this.drone(480,h*.55,.85,Math.sin(t)*.1);this.ring(480,floor,60,7,.3);}
