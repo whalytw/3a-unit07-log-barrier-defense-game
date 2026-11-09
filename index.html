@@ -7,13 +7,14 @@
   <meta name="description" content="對數結界防衛戰：三人獨立觸控、十幕動漫戰鬥與高中對數心算挑戰。">
   <title>對數結界防衛戰 · 三人守護任務</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.3.0">
-  <script defer src="math.js?v=1.3.0"></script>
-  <script defer src="effects.js?v=1.3.0"></script>
-  <script defer src="audio.js?v=1.3.0"></script>
-  <script defer src="battle.js?v=1.3.0"></script>
-  <script defer src="input.js?v=1.3.0"></script>
-  <script defer src="app.js?v=1.3.0"></script>
+  <link rel="stylesheet" href="styles.css?v=1.3.1">
+  <script src="touch-guard.js?v=1.3.1"></script>
+  <script defer src="math.js?v=1.3.1"></script>
+  <script defer src="effects.js?v=1.3.1"></script>
+  <script defer src="audio.js?v=1.3.1"></script>
+  <script defer src="battle.js?v=1.3.1"></script>
+  <script defer src="input.js?v=1.3.1"></script>
+  <script defer src="app.js?v=1.3.1"></script>
 </head>
 <body>
   <header class="topbar">
@@ -22,14 +23,14 @@
     <nav class="top-actions" aria-label="教師控制"><button id="pause-button" disabled>Ⅱ 暫停</button><button id="sound-button" aria-pressed="true">♪ 音效開</button><button id="fullscreen-button">⛶ 全螢幕</button><button id="settings-button">⚙ 設定</button></nav>
   </header>
   <main id="arena" class="arena" aria-label="三人獨立遊戲區"></main>
-  <footer class="footer"><span>UNIT 07 · 真數條件 × 對數不等式</span><span id="touch-status">三區獨立觸控 · v1.3.0</span><span id="session-status">拖曳端點，或使用 ＋／− 調整</span></footer>
+  <footer class="footer"><span>UNIT 07 · 真數條件 × 對數不等式</span><span id="touch-status">三區獨立觸控 · v1.3.1</span><span id="session-status">拖曳端點，或使用 ＋／− 調整</span></footer>
 
   <div id="welcome" class="welcome">
     <div class="welcome-grid"></div>
     <div class="welcome-inner">
       <div class="welcome-copy"><span class="eyebrow">UNIT 07 / LOGARITHMIC DEFENSE</span><h1>以數學為界，<br><em>守護你的城市。</em></h1><p>三位守護者，各自獨立闖關。<br>找出正確範圍，啟動你的專屬能力。</p><div class="welcome-facts"><span>03<small>位守護者</small></span><span><b id="welcome-question-count">08</b><small>本局題數</small></span><span>4:30<small>分鐘任務</small></span></div><button class="start-button" id="start-button">開始守護 <span>→</span></button><div class="welcome-links"><button id="welcome-settings">教師設定</button><button id="touch-test-button">三人觸控測試</button><button id="help-button">玩法說明</button><a class="preview-link" href="animation-preview.html">演出預覽 ↗</a></div></div>
       <div class="squad-preview"><div class="squad-orbit"></div><div class="squad-hero h0"></div><div class="squad-hero h1"></div><div class="squad-hero h2"></div><div class="squad-caption"><span>CYAN / VIOLET / AMBER</span><b>結界小隊 · 出擊準備完成</b></div></div>
-    </div><div class="welcome-version">原創動漫美術 · 完整離線可玩 · v1.3.0</div>
+    </div><div class="welcome-version">原創動漫美術 · 完整離線可玩 · v1.3.1</div>
   </div>
 
   <div id="briefing" class="briefing hidden"><div class="briefing-card"><span class="eyebrow">操作演練</span><h2>把安全範圍交給你。</h2><p>拖曳數線端點，或按 ＋／− 調整。<br>點選 <b>○ 空心 / ● 實心</b> 決定是否包含端點。<br>無限延伸時，選 <b>−∞ / ＋∞</b>，再按「啟動」。</p><div class="demo-interval"><span>2</span><i></i><span>6</span></div><p class="briefing-example">示範：2 ＜ x ≤ 6 → 左空心、右實心</p><div class="briefing-bottom"><b id="briefing-count">15</b><span>秒後三區同時開始</span><button id="skip-briefing">已了解，立即出擊</button></div></div></div>

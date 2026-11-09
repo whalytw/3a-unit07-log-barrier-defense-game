@@ -1,6 +1,6 @@
 # 對數結界防衛戰
 
-三位學生各自操作的 Unit 07 對數函數教學網頁遊戲。使用原創動漫角色與科技城市美術，十種題型可逐題勾選，並各自對應一種戰鬥事件。版本：**v1.3.0**。
+三位學生各自操作的 Unit 07 對數函數教學網頁遊戲。使用原創動漫角色與科技城市美術，十種題型可逐題勾選，並各自對應一種戰鬥事件。版本：**v1.3.1**。
 
 建議 GitHub 儲存庫名稱：**`log-barrier-defense-game`**
 
@@ -89,6 +89,14 @@
 
 所有正確端點均為整數；不要求輸入根號或小數。題目圍繞 `log 1=0`、`log 10=1`、`2¹=2`、`2²=4`、`2³=8`。最後一題提供「兩真數相差 2；4×2=8」線索，支援心算。
 
+## 長按與瀏覽器誤觸防護
+
+v1.3.1 預設啟用：遊戲頁攔截長按／右鍵選單、文字選取、圖片及連結拖曳；在遊戲內容取得焦點時攔截 Ctrl+U、Shift+F10 與選單鍵。右鍵、中鍵和筆側鍵不會改動答案或數線。三人的左鍵／正常觸控仍依 pointerId 獨立處理，觸碰即回應。
+
+姓名欄保留文字輸入、選取及編輯功能，教師設定的勾選、原生按鈕與可捲動視窗正常使用。F11、Esc、Tab、Enter、空白鍵、複製貼上及重新整理不受此防護影響。數線與答題控制只阻止瀏覽器預設手勢，不增加第二套答題事件。
+
+本防護只作用於遊戲網頁收到的事件，無法控制網址列、Edge 本身的選單或 Windows／IFP 驅動層攔截的操作。更新後關閉已開啟的原始碼分頁，回遊戲頁按 Ctrl+Shift+R，確認頁尾顯示 v1.3.1，再於實際 IFP8653 測試。
+
 ## 觸控驗收
 
 首頁附 **三人觸控測試**。在教室 IFP8653 上，請三人同時按住各區，再快速交錯點按，觀察各區接收次數與最高同時觸點。這裡顯示瀏覽器實際收到的輸入，可比較有線 USB Touch 與無線 Touchback。
@@ -100,14 +108,15 @@
 - `index.html`：遊戲入口、教師設定、結算視窗。
 - `styles.css`：三欄版面、深／淺色介面。
 - `math.js`：題目產生、精確端點判分、配分。
-- `input.js`：多觸點輸入與 click 去重。
+- `input.js`：多觸點輸入、click 去重與排除右鍵／筆側鍵。
+- `touch-guard.js`：長按選單、選字、拖曳與原始碼快捷鍵防護，遊戲和預覽頁共用。
 - `battle.js`：十種戰鬥動畫、4 秒演出佇列。
 - `effects.js`：城市區域、8 FPS 角色影格、進階動作特效。
 - `audio.js`：十幕同步音效、混音限制與音量控制。
 - `animation-preview.html`、`preview.js`：十幕演出預覽。
 - `app.js`：遊戲狀態、數線、計時、提示、成績。
 - `assets/`：原創角色、城市背景、圖示。
-- `tests/core.test.cjs`、`tests/presentation.test.cjs`、`tests/selection.test.cjs`：可用 `node --test tests/core.test.cjs tests/presentation.test.cjs tests/selection.test.cjs` 執行。
+- `tests/core.test.cjs`、`tests/presentation.test.cjs`、`tests/selection.test.cjs`、`tests/touch-guard.test.cjs`：可用 `node --test tests/core.test.cjs tests/presentation.test.cjs tests/selection.test.cjs tests/touch-guard.test.cjs` 執行。
 - `tests/layout-1280.html`：以 1280×720 iframe 檢查介面。
 - `ASSETS.md`：美術來源與製作提示。
 - `VALIDATION.md`：此版本已完成的驗證及實機驗收範圍。
@@ -116,4 +125,4 @@
 
 ## 更新舊版
 
-將新版資料夾內的檔案完整覆蓋到原儲存庫，包含 `effects.js`、`battle.js`、`styles.css`、`animation-preview.html` 與 `assets` 內的六張新角色圖片。儲存庫名稱仍為 `log-barrier-defense-game`。程式載入版本已改成 v1.3.0，頁尾可確認目前版本。
+將新版資料夾內的檔案完整覆蓋到原儲存庫，特別包含新增的 `touch-guard.js`，並保留完整的 `assets` 資料夾。儲存庫名稱仍為 `log-barrier-defense-game`。程式載入版本已改成 v1.3.1，頁尾可確認目前版本。
