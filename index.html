@@ -7,41 +7,43 @@
   <meta name="description" content="對數結界防衛戰：三人獨立觸控、十幕動漫戰鬥與高中對數心算挑戰。">
   <title>對數結界防衛戰 · 三人守護任務</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=1.3.1">
-  <script src="touch-guard.js?v=1.3.1"></script>
-  <script defer src="math.js?v=1.3.1"></script>
-  <script defer src="effects.js?v=1.3.1"></script>
-  <script defer src="audio.js?v=1.3.1"></script>
-  <script defer src="battle.js?v=1.3.1"></script>
-  <script defer src="input.js?v=1.3.1"></script>
-  <script defer src="app.js?v=1.3.1"></script>
+  <link rel="stylesheet" href="styles.css?v=1.4.0">
+  <script src="touch-guard.js?v=1.4.0"></script>
+  <script defer src="controls.js?v=1.4.0"></script>
+  <script defer src="math.js?v=1.4.0"></script>
+  <script defer src="effects.js?v=1.4.0"></script>
+  <script defer src="audio.js?v=1.4.0"></script>
+  <script defer src="battle.js?v=1.4.0"></script>
+  <script defer src="input.js?v=1.4.0"></script>
+  <script defer src="app.js?v=1.4.0"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#" aria-label="對數結界防衛戰"><span class="brand-icon">⬡</span><span>對數結界防衛戰<small>LOG BARRIER / 三人守護任務</small></span></a>
-    <div class="mission-clock"><span id="phase-label">準備出擊</span><b id="clock">04:30</b><span class="clock-track"><i id="clock-fill"></i></span></div>
+    <div class="mission-clock"><span id="phase-label">準備出擊</span><b id="clock">05:00</b><span class="clock-track"><i id="clock-fill"></i></span></div>
     <nav class="top-actions" aria-label="教師控制"><button id="pause-button" disabled>Ⅱ 暫停</button><button id="sound-button" aria-pressed="true">♪ 音效開</button><button id="fullscreen-button">⛶ 全螢幕</button><button id="settings-button">⚙ 設定</button></nav>
   </header>
   <main id="arena" class="arena" aria-label="三人獨立遊戲區"></main>
-  <footer class="footer"><span>UNIT 07 · 真數條件 × 對數不等式</span><span id="touch-status">三區獨立觸控 · v1.3.1</span><span id="session-status">拖曳端點，或使用 ＋／− 調整</span></footer>
+  <footer class="footer"><span>UNIT 07 · 真數條件 × 對數不等式</span><span id="touch-status">三區獨立觸控 · v1.4.0</span><span id="session-status">拖曳端點，或使用 ＋／− 調整</span></footer>
 
   <div id="welcome" class="welcome">
+    <nav class="welcome-toolbar" aria-label="標題畫面控制"><button id="welcome-fullscreen">⛶ 全螢幕</button><button id="welcome-settings-top">⚙ 設定</button></nav>
     <div class="welcome-grid"></div>
     <div class="welcome-inner">
-      <div class="welcome-copy"><span class="eyebrow">UNIT 07 / LOGARITHMIC DEFENSE</span><h1>以數學為界，<br><em>守護你的城市。</em></h1><p>三位守護者，各自獨立闖關。<br>找出正確範圍，啟動你的專屬能力。</p><div class="welcome-facts"><span>03<small>位守護者</small></span><span><b id="welcome-question-count">08</b><small>本局題數</small></span><span>4:30<small>分鐘任務</small></span></div><button class="start-button" id="start-button">開始守護 <span>→</span></button><div class="welcome-links"><button id="welcome-settings">教師設定</button><button id="touch-test-button">三人觸控測試</button><button id="help-button">玩法說明</button><a class="preview-link" href="animation-preview.html">演出預覽 ↗</a></div></div>
+      <div class="welcome-copy"><span class="eyebrow">UNIT 07 / LOGARITHMIC DEFENSE</span><h1>以數學為界，<br><em>守護你的城市。</em></h1><p>三位守護者，各自獨立闖關。<br>找出正確範圍，啟動你的專屬能力。</p><div class="welcome-facts"><span>03<small>位守護者</small></span><span><b id="welcome-question-count">08</b><small>本局題數</small></span><span><b id="welcome-duration">5:00</b><small>分鐘任務</small></span></div><button class="start-button" id="start-button">開始守護 <span>→</span></button><div class="welcome-links"><button id="welcome-settings">教師設定</button><button id="touch-test-button">三人觸控測試</button><button id="help-button">玩法說明</button><a class="preview-link" href="animation-preview.html">演出預覽 ↗</a></div></div>
       <div class="squad-preview"><div class="squad-orbit"></div><div class="squad-hero h0"></div><div class="squad-hero h1"></div><div class="squad-hero h2"></div><div class="squad-caption"><span>CYAN / VIOLET / AMBER</span><b>結界小隊 · 出擊準備完成</b></div></div>
-    </div><div class="welcome-version">原創動漫美術 · 完整離線可玩 · v1.3.1</div>
+    </div><div class="welcome-version">原創動漫美術 · 完整離線可玩 · v1.4.0</div>
   </div>
 
   <div id="briefing" class="briefing hidden"><div class="briefing-card"><span class="eyebrow">操作演練</span><h2>把安全範圍交給你。</h2><p>拖曳數線端點，或按 ＋／− 調整。<br>點選 <b>○ 空心 / ● 實心</b> 決定是否包含端點。<br>無限延伸時，選 <b>−∞ / ＋∞</b>，再按「啟動」。</p><div class="demo-interval"><span>2</span><i></i><span>6</span></div><p class="briefing-example">示範：2 ＜ x ≤ 6 → 左空心、右實心</p><div class="briefing-bottom"><b id="briefing-count">15</b><span>秒後三區同時開始</span><button id="skip-briefing">已了解，立即出擊</button></div></div></div>
 
-  <dialog id="settings-dialog"><form id="settings-form" method="dialog"><div class="dialog-title"><div><span class="eyebrow">TEACHER CONSOLE</span><h2>任務設定</h2></div><button type="button" class="close-dialog" data-close="settings-dialog" aria-label="關閉">×</button></div><div class="settings-names"><label>1 號守護者<input name="name0" maxlength="10" value="1號守護者"></label><label>2 號守護者<input name="name1" maxlength="10" value="2號守護者"></label><label>3 號守護者<input name="name2" maxlength="10" value="3號守護者"></label></div><fieldset class="question-selection"><legend>個別出題設定</legend><p class="question-selection-description">勾選本局要出的題目；預設第 1～8 題。</p><div id="question-options" class="question-options"></div><p id="question-selection-summary" role="status">已選 8 題 · 滿分 60 分 · 同時套用三區</p><p id="question-selection-error" class="hidden" role="alert">請至少勾選一題，才能儲存設定。</p></fieldset><label class="setting-row">任務總時長<select name="duration"><option value="270">4 分 30 秒（預設）</option><option value="330">5 分 30 秒</option><option value="390">6 分 30 秒</option></select></label><label class="setting-row">介面配色<select name="theme"><option value="dark">深色科技</option><option value="light">明亮教室</option></select></label><label class="setting-row">動態效果<select name="effects"><option value="standard">標準 · 完整戰鬥</option><option value="gentle">柔和 · 減少閃光</option></select></label><label class="setting-row">音效音量<select name="volume"><option value="0.25">低音量</option><option value="0.45">標準音量</option><option value="0.7">較大音量</option></select></label><p class="setting-note">題數與滿分依勾選題目決定；未勾選的題目也不會出現在加練。開場教學 15 秒；最後 15 秒包含末次演出與結算。較快完成者可繼續加練。設定將套用到下一局。</p><div class="dialog-actions"><button type="button" id="end-session-button">本局結算</button><button type="button" id="restart-button">回到準備畫面</button><button class="primary" type="submit">儲存設定</button></div></form></dialog>
+  <dialog id="settings-dialog"><form id="settings-form" method="dialog"><div class="dialog-title"><div><span class="eyebrow">TEACHER CONSOLE</span><h2>任務設定</h2></div><button type="button" class="close-dialog" data-close="settings-dialog" aria-label="關閉">×</button></div><div class="settings-names"><label>1 號守護者<input name="name0" maxlength="10" value="1號守護者"></label><label>2 號守護者<input name="name1" maxlength="10" value="2號守護者"></label><label>3 號守護者<input name="name2" maxlength="10" value="3號守護者"></label></div><fieldset class="question-selection"><legend>個別出題設定</legend><p class="question-selection-description">勾選本局要出的題目；預設第 1～8 題。</p><div id="question-options" class="question-options"></div><p id="question-selection-summary" role="status">已選 8 題 · 滿分 60 分 · 同時套用三區</p><p id="question-selection-error" class="hidden" role="alert">請至少勾選一題，才能儲存設定。</p></fieldset><label class="setting-row">任務總時長<select name="duration"><option value="270">4 分 30 秒</option><option value="285">4 分 45 秒</option><option value="300" selected>5 分 00 秒（預設）</option><option value="315">5 分 15 秒</option><option value="330">5 分 30 秒</option><option value="345">5 分 45 秒</option><option value="360">6 分 00 秒</option><option value="375">6 分 15 秒</option><option value="390">6 分 30 秒</option></select></label><label class="setting-row">介面配色<select name="theme"><option value="dark">深色科技</option><option value="light">明亮教室</option></select></label><label class="setting-row">動態效果<select name="effects"><option value="standard">標準 · 完整戰鬥</option><option value="gentle">柔和 · 減少閃光</option></select></label><label class="setting-row">音效音量<select name="volume"><option value="0.25">低音量</option><option value="0.45">標準音量</option><option value="0.7">較大音量</option></select></label><p class="setting-note">題數與滿分依勾選題目決定；未勾選的題目也不會出現在加練。開場教學 15 秒；最後 15 秒包含末次演出與結算。較快完成者可繼續加練。設定將套用到下一局。</p><div class="dialog-actions"><button type="button" id="end-session-button">本局結算</button><button type="button" id="restart-button">回到準備畫面</button><button class="primary" type="submit">儲存設定</button></div></form></dialog>
 
   <dialog id="help-dialog"><div class="dialog-title"><div><span class="eyebrow">HOW TO PLAY</span><h2>三人各自守護</h2></div><button class="close-dialog" data-close="help-dialog" aria-label="關閉">×</button></div><ol class="help-list"><li>先找每個對數的真數條件，再解不等式，取共同範圍。</li><li>左右兩列各設定一個端點。○ 表示不包含，● 表示包含。</li><li>拖曳端點可快速調整；＋／− 每次增減 1。端點都設定好後按「啟動」。</li><li>無界範圍用 −∞ 或 ＋∞；無限端點沒有空心／實心之分。</li><li>首答正確取得全分；錯一次後答對 80%；錯兩次以上或用提示後答對 60%；看詳解略過為 0 分。</li><li>第 1～4 題各 5 分，第 5～8 題各 10 分，第 9～10 題各 20 分。滿分為勾選題目的配分加總；加練只使用已勾選題目，另計題數，不改主線成績。</li></ol><p>需要離開畫面時，請使用頂端「暫停」。切到其他分頁也會自動暫停。</p></dialog>
 
   <dialog id="touch-dialog"><div class="dialog-title"><div><span class="eyebrow">MULTI-TOUCH CHECK</span><h2>三人同時觸控測試</h2></div><button class="close-dialog" data-close="touch-dialog" aria-label="關閉">×</button></div><p>三人同時按住各自區域，並快速交錯連按。數字應在觸碰當下更新。</p><div class="touch-pads"><button data-pad="0"><b>1</b><span>收到 <em>0</em> 次</span><small>目前觸點 0</small></button><button data-pad="1"><b>2</b><span>收到 <em>0</em> 次</span><small>目前觸點 0</small></button><button data-pad="2"><b>3</b><span>收到 <em>0</em> 次</span><small>目前觸點 0</small></button></div><p id="touch-total">目前同時觸點 0 · 最高 0</p><p class="setting-note">這裡顯示瀏覽器實際收到的觸點。可用同一畫面比較有線觸控與無線 Touchback。</p></dialog>
 
-  <dialog id="results-dialog" class="results-dialog"><div class="dialog-title"><div><span class="eyebrow">MISSION REPORT</span><h2>城市守護報告</h2></div><button class="close-dialog" data-close="results-dialog" aria-label="關閉">×</button></div><div id="result-cards" class="result-cards"></div><div class="review-heading"><h3>題目與解說重播</h3><select id="review-player" aria-label="選擇守護者"></select></div><div id="review-list" class="review-list"></div><div class="dialog-actions"><button id="download-results">下載成績 CSV</button><button class="primary" id="play-again">再守護一次</button></div></dialog>
+  <dialog id="results-dialog" class="results-dialog"><div class="dialog-title"><div><span class="eyebrow">MISSION REPORT</span><h2>城市守護報告</h2></div><div class="result-header-actions"><button class="primary" id="play-again">再守護一次</button><button class="close-dialog" data-close="results-dialog" aria-label="關閉">×</button></div></div><div id="result-cards" class="result-cards"></div><div class="review-heading"><h3>題目與解說重播</h3><select id="review-player" aria-label="選擇守護者"></select></div><div id="review-list" class="review-list"></div><div class="dialog-actions"><button id="download-results">下載成績 CSV</button></div></dialog>
   <div id="pause-overlay" class="pause-overlay hidden"><div><span>Ⅱ</span><h2>任務暫停</h2><p>計時與三區動畫已暫停</p><button id="resume-button" class="primary">繼續守護</button></div></div>
 </body>
 </html>

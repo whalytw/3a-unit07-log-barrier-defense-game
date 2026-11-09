@@ -1,5 +1,22 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const Art=require('../effects.js'),Audio=require('../audio.js');
+test('the eight-frame idle body height variation is exactly halved for every character',()=>{
+  assert.equal(Art.IDLE_AMPLITUDE,.5);
+  for(let player=0;player<3;player++){
+    const original=Art.IDLE_HEIGHTS[player],reduced=original.map((height,frame)=>height*Art.idleScale(player,frame));
+    const span=values=>Math.max(...values)-Math.min(...values);
+    assert.ok(Math.abs(span(reduced)-span(original)/2)<1e-9);assert.equal(Art.idleScale(player,0),1);
+  }
+});
+test('idle compensation keeps feet anchored and leaves all action sprite sizes unchanged',()=>{
+  for(let player=0;player<3;player++)for(let pose=0;pose<4;pose++){
+    const im=(pose===0?Art.idles:Art.characters)[player];Object.assign(im,{complete:true,naturalWidth:pose===0?1774:1024,naturalHeight:pose===0?887:1536});
+    const calls=[];Art.drawPose({drawImage:(...args)=>calls.push(args)},player,pose,.375,300);const args=calls[0];
+    assert.equal(args[7],300);assert.equal(args[8],pose===0?300*Art.idleScale(player,Art.idleFrame(.375,player)):300);
+    assert.ok(args[6]<0&&args[6]+args[8]>0,'the fixed foot baseline lies inside the destination cell');
+    im.complete=false;im.naturalWidth=0;
+  }
+});
 test('character animation changes eight times per second with eight distinct loop slots',()=>{assert.equal(Art.FRAME_FPS,8);assert.equal(Art.IDLE_FRAMES,8);assert.deepEqual([0,.124,.125,.249,.25,.374,.375,.499,.5,.749,.875,.999,1].map(Art.poseFrame),[0,0,1,1,2,2,3,3,4,5,7,7,0]);assert.equal(new Set(Array.from({length:8},(_,i)=>Art.poseFrame(i/8))).size,8);});
 test('all ready and action poses use eight cells without spilling across animation rows',()=>{for(let pose=0;pose<4;pose++){const cells=Array.from({length:8},(_,frame)=>Art.poseCell(pose,frame/8));assert.equal(new Set(cells.map(c=>c.column+','+c.row)).size,8);const expected=pose===0?[0,1]:[(pose-1)*2,(pose-1)*2+1];assert.deepEqual([...new Set(cells.map(c=>c.row))],expected);}assert.deepEqual([0,1,2].map(p=>Art.idleFrame(0,p)),[0,1,2]);assert.equal(new Set(Art.STANCES).size,3);});
 test('ten levels address ten distinct locations on the same two city atlases',()=>{assert.equal(Art.DISTRICTS.length,10);const keys=Art.DISTRICTS.map((_,i)=>JSON.stringify(Art.districtCell(i)));assert.equal(new Set(keys).size,10);for(let i=0;i<10;i++){const c=Art.districtCell(i);assert.ok(c.atlas<2&&c.row<3&&c.column<2);}});
